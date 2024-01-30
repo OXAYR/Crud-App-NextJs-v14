@@ -8,7 +8,6 @@ export async function GET(
 	return Response.json(todo);
 }
 
-
 export async function PATCH(
 	request: Request,
 	{ params }: { params: { id: string } }
@@ -17,20 +16,21 @@ export async function PATCH(
 	const { text } = body;
 	const { id } = params;
 	const index = parseInt(id);
-	todos.splice(index, 0, { id: index, text });
+
+	const updateIndex = todos.findIndex((todo) => todo.id === index);
+	todos[updateIndex].text = text;
+	return Response.json(todos);
 }
 
 export async function DELETE(
 	request: Request,
 	{ params }: { params: { id: string } }
 ) {
-	const body = await request.json();
-	const { text } = body;
 	const { id } = params;
 	const index = parseInt(id);
-	if (index === todos.length - 1) {
-		todos.pop();
-	} else {
-		todos.splice(index, 1, { id: index, text });
-	}
+
+	const deletedIndex = todos.findIndex((todo) => todo.id === index);
+	const deletedComment = todos[deletedIndex];
+	todos.splice(deletedIndex, 1);
+	return Response.json(deletedComment);
 }
