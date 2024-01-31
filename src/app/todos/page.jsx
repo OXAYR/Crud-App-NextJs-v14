@@ -62,7 +62,7 @@ export default function TodosPage() {
 	return (
 		<>
 			<div className="bg-gray-200 p-4">
-				<h1 className="text-3xl font-bold mb-4">Todos</h1>
+				<h2 className="text-3xl font-bold mb-4">Todos</h2>
 				<div className="flex space-x-2">
 					<input
 						type="text"
