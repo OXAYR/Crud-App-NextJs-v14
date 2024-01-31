@@ -12,7 +12,6 @@ export default function TodosPage() {
 		const fetchData = async () => {
 			try {
 				const response = await axios.get("/todos/api");
-				console.log(response.data);
 				setTodos(response.data);
 			} catch (error) {
 				console.error("Error fetching todos:", error);
@@ -30,10 +29,18 @@ export default function TodosPage() {
 		try {
 			const response = await axios.post("/todos/api", { text: newTodoText });
 			setTodos([...todos, response.data]);
-
 			setNewTodoText("");
 		} catch (error) {
 			console.error("Error adding todo:", error);
+		}
+	};
+
+	const handleDeleteTodo = async (id) => {
+		try {
+			await axios.delete(`/todos/api/${id}`);
+			setTodos(todos.filter((todo) => todo.id !== id));
+		} catch (error) {
+			console.error("Error deleting todo:", error);
 		}
 	};
 
@@ -64,9 +71,15 @@ export default function TodosPage() {
 						{todos.map((todo) => (
 							<li
 								key={todo.id}
-								className="text-gray-700"
+								className="text-gray-700 flex items-center justify-between"
 							>
 								{todo.text}
+								<button
+									onClick={() => handleDeleteTodo(todo.id)}
+									className="text-red-500"
+								>
+									Delete
+								</button>
 							</li>
 						))}
 					</ul>
