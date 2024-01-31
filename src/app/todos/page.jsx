@@ -2,6 +2,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./styles.css";
 
 export default function TodosPage() {
 	const [newTodoText, setNewTodoText] = useState("");
@@ -38,27 +39,39 @@ export default function TodosPage() {
 
 	return (
 		<>
-			<div>
-				<h1>Todos</h1>
-				<input
-					type="text"
-					placeholder="Add a new todo"
-					value={newTodoText}
-					onChange={handleInputChange}
-				/>
-				<button onClick={handleAddTodo}>Add</button>
+			<div className="bg-gray-200 p-4">
+				<h1 className="text-3xl font-bold mb-4">Todos</h1>
+				<div className="flex space-x-2">
+					<input
+						type="text"
+						placeholder="Add a new todo"
+						value={newTodoText}
+						onChange={handleInputChange}
+						className="border border-gray-300 p-2 flex-grow"
+					/>
+					<button
+						onClick={handleAddTodo}
+						className="bg-blue-500 text-white px-4 py-2"
+					>
+						Add
+					</button>
+				</div>
 			</div>
-			<div>
-				<h1>Todos</h1>
-
-				{todos ? (
-					<ul>
+			<div className="mt-8">
+				<h1 className="text-2xl font-semibold mb-4">Todo List</h1>
+				{todos.length > 0 ? (
+					<ul className="list-disc pl-8">
 						{todos.map((todo) => (
-							<li key={todo.id}>{todo.text}</li>
+							<li
+								key={todo.id}
+								className="text-gray-700"
+							>
+								{todo.text}
+							</li>
 						))}
 					</ul>
 				) : (
-					<p>No todos available.</p>
+					<p className="text-gray-500">No todos available.</p>
 				)}
 			</div>
 		</>
