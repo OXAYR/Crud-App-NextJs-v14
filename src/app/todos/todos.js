@@ -5,4 +5,3 @@ export const todos = [
 	},
 ];
 
-// localStorage.setItem("todos", JSON.stringify(Todos));
